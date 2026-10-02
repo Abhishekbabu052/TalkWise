@@ -1,0 +1,10 @@
+const r = require('express').Router();
+const c = require('../controllers/responseController');
+const { protect } = require('../middleware/auth');
+const admin = require('../middleware/admin');
+r.get('/mine', protect, c.mine);
+r.get('/', protect, admin, c.getAll);
+r.get('/post/:postId', c.getByPost);
+r.post('/post/:postId', protect, c.create);
+r.delete('/:id', protect, c.remove);
+module.exports = r;
