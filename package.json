@@ -3,9 +3,9 @@
   "private": true,
   "scripts": {
     "install:all": "npm install && npm install --prefix server && npm install --prefix client",
-    "start": "npm run dev",
+    "start": "npm start --prefix server",
     "server": "npm run dev --prefix server",
-    "client": "npm run dev --prefix client -- --open",
+    "client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "seed:admin": "node server/config/seedAdmin.js"
   },
