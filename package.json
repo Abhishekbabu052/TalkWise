@@ -9,5 +9,10 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "seed:admin": "node server/config/seedAdmin.js"
   },
-  "devDependencies": { "concurrently": "^9.0.0" }
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.5"
+  }
 }
