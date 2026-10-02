@@ -6,8 +6,10 @@ A moderated public discussion platform built with the MERN stack and Socket.IO.
 1. Requirements: Node 18+ and MongoDB running locally (or an Atlas URI).
 2. `npm run install:all`
 3. Edit `server/.env` (copy of `.env.example`) and `client/.env` if needed.
-4. `npm run seed:admin`  creates the admin from `ADMIN_EMAIL` / `ADMIN_PASSWORD` (default `admin@talkwise.com` / `Admin@123`). Change it.
+4. `npm run seed:admin` creates or resets the admin from `ADMIN_EMAIL` / `ADMIN_PASSWORD` (defaults are in `server/.env.example`; change them).
 5. `npm run dev`  starts the API on :5000 and the client on :5173.
+
+For a deployed admin account, set `ADMIN_EMAIL`, `ADMIN_PASSWORD`, and `MONGO_URI` in the Render service environment, then run `npm run seed:admin` in the Render Shell. This must use the same Atlas database as the deployed API.
 
 ## Features
 - Admin: create/edit/delete posts (with image), manage users, reports, keywords, notifications
