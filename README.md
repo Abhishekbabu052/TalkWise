@@ -11,6 +11,8 @@ A moderated public discussion platform built with the MERN stack and Socket.IO.
 
 For a deployed admin account, set `ADMIN_EMAIL`, `ADMIN_PASSWORD`, and `MONGO_URI` in the Render service environment, then run `npm run seed:admin` in the Render Shell. This must use the same Atlas database as the deployed API.
 
+Post images are stored in Cloudinary so they persist across server restarts and redeploys. Set `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET` in the server environment. Existing images saved under `/uploads` must be uploaded again if the host's temporary disk has already cleared them.
+
 ## Features
 - Admin: create/edit/delete posts (with image), manage users, reports, keywords, notifications
 - Public: browse posts and responses without an account

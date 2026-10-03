@@ -12,6 +12,6 @@ api.interceptors.request.use((cfg) => {
   if (u?.token) cfg.headers.Authorization = `Bearer ${u.token}`;
   return cfg;
 });
-export const imgUrl = (p) => (p ? `${BASE}${p}` : '');
+export const imgUrl = (p) => (p ? (/^https?:\/\//i.test(p) ? p : `${BASE}${p}`) : '');
 export const errMsg = (e) => e.response?.data?.message || 'Something went wrong. Try again.';
 export default api;

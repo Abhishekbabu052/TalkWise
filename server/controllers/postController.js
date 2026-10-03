@@ -35,7 +35,7 @@ exports.getPost = async (req, res) => {
 exports.createPost = async (req, res) => {
   const { title, description } = req.body;
   if (typeof description !== 'string' || !description.trim()) return res.status(400).json({ message: 'Description required' });
-  const post = await Post.create({ title: typeof title === 'string' ? title.trim() : '', description, author: req.user._id, image: req.file ? `/uploads/${req.file.filename}` : '' });
+  const post = await Post.create({ title: typeof title === 'string' ? title.trim() : '', description, author: req.user._id, image: req.file ? req.file.path : '' });
   res.status(201).json(post);
 };
 exports.updatePost = async (req, res) => {
@@ -43,7 +43,7 @@ exports.updatePost = async (req, res) => {
   if (!post) return res.status(404).json({ message: 'Post not found' });
   if (typeof req.body.title === 'string') post.title = req.body.title.trim();
   post.description = req.body.description || post.description;
-  if (req.file) post.image = `/uploads/${req.file.filename}`;
+  if (req.file) post.image = req.file.path;
   res.json(await post.save());
 };
 exports.deletePost = async (req, res) => {
