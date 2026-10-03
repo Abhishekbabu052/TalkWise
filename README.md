@@ -5,13 +5,15 @@ A moderated public discussion platform built with the MERN stack and Socket.IO.
 ## Setup
 1. Requirements: Node 18+ and MongoDB running locally (or an Atlas URI).
 2. `npm run install:all`
-3. Edit `server/.env` (copy of `.env.example`) and `client/.env` if needed.
-4. `npm run seed:admin` creates or resets the admin from `ADMIN_EMAIL` / `ADMIN_PASSWORD` (defaults are in `server/.env.example`; change them).
-5. `npm run dev`  starts the API on :5000 and the client on :5173.
+3. Edit `backend/.env` (copy of `.env.example`) and `frontend/.env` if needed.
+4. `npm run seed:admin` creates or resets the admin from `ADMIN_EMAIL` / `ADMIN_PASSWORD` (defaults are in `backend/.env.example`; change them).
+5. `npm run dev` starts the API on :5000 and the frontend on :5173.
 
 For a deployed admin account, set `ADMIN_EMAIL`, `ADMIN_PASSWORD`, and `MONGO_URI` in the Render service environment, then run `npm run seed:admin` in the Render Shell. This must use the same Atlas database as the deployed API.
 
-Post images are stored in Cloudinary so they persist across server restarts and redeploys. Set `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET` in the server environment. Existing images saved under `/uploads` must be uploaded again if the host's temporary disk has already cleared them.
+For deployments from this repository, set the Render API service root directory to `backend` and the Vercel project root directory to `frontend`.
+
+Post images are stored in Cloudinary so they persist across backend restarts and redeploys. Set `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET` in the backend environment. Existing images saved under `/uploads` must be uploaded again if the host's temporary disk has already cleared them.
 
 ## Features
 - Admin: create/edit/delete posts (with image), manage users, reports, keywords, notifications
