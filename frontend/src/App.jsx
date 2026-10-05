@@ -16,6 +16,8 @@ import Users from './pages/admin/Users';
 import Reports from './pages/admin/Reports';
 import Keywords from './pages/admin/Keywords';
 import Notifications from './pages/admin/Notifications';
+import Admins from './pages/admin/Admins';
+import AdminResponses from './pages/admin/Responses';
 
 function Private({ children }) {
   const { user } = useAuth();
@@ -31,6 +33,11 @@ function AdminOnly() {
       <main className="admin-main"><Outlet /></main>
     </div>
   );
+}
+function SuperAdminOnly({ children }) {
+  const { user, isSuperAdmin } = useAuth();
+  if (!user) return <Navigate to="/login" replace />;
+  return isSuperAdmin ? children : <Navigate to="/admin" replace />;
 }
 
 export default function App() {
@@ -53,8 +60,10 @@ export default function App() {
           <Route path="posts/:id/edit" element={<EditPost />} />
           <Route path="users" element={<Users />} />
           <Route path="reports" element={<Reports />} />
-          <Route path="keywords" element={<Keywords />} />
           <Route path="notifications" element={<Notifications />} />
+          <Route path="admins" element={<SuperAdminOnly><Admins /></SuperAdminOnly>} />
+          <Route path="responses" element={<SuperAdminOnly><AdminResponses /></SuperAdminOnly>} />
+          <Route path="keywords" element={<SuperAdminOnly><Keywords /></SuperAdminOnly>} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

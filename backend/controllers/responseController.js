@@ -39,10 +39,19 @@ exports.create = async (req, res) => {
 exports.getAll = async (req, res) => {
   res.json(await Response.find().populate('user', 'name').populate('post', 'title').sort('-createdAt').limit(200));
 };
+exports.update = async (req, res) => {
+  const text = (req.body.text || '').trim();
+  if (!text) return res.status(400).json({ message: 'Response cannot be empty' });
+  const response = await Response.findByIdAndUpdate(req.params.id, { text }, { new: true })
+    .populate('user', 'name').populate('post', 'title');
+  if (!response) return res.status(404).json({ message: 'Not found' });
+  getIO().to(`post:${response.post._id}`).emit('responseUpdated', response);
+  res.json(response);
+};
 exports.remove = async (req, res) => {
   const r = await Response.findById(req.params.id);
   if (!r) return res.status(404).json({ message: 'Not found' });
-  if (req.user.role !== 'admin' && String(r.user) !== String(req.user._id)) return res.status(403).json({ message: 'Not allowed' });
+  if (req.user.role !== 'superadmin' && String(r.user) !== String(req.user._id)) return res.status(403).json({ message: 'Not allowed' });
   await r.deleteOne();
   getIO().to(`post:${r.post}`).emit('responseDeleted', r._id);
   res.json({ message: 'Response deleted' });

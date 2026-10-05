@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const sign = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-const pack = (u) => ({ _id: u._id, name: u.name, email: u.email, role: u.role, token: sign(u._id) });
+const pack = (u) => ({ _id: u._id, name: u.name, email: u.email, role: u.role, adminLabel: u.adminLabel, token: sign(u._id) });
 
 exports.register = async (req, res) => {
   try {

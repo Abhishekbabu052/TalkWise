@@ -16,9 +16,15 @@ async function createAdmin() {
 
     let admin = await User.findOne({ email: ADMIN_EMAIL });
 
+    const usedLabels = new Set(await User.distinct('adminLabel', { role: 'admin', email: { $ne: ADMIN_EMAIL } }));
+    let labelIndex = 0;
+    while (usedLabels.has(labelIndex === 0 ? 'Admin' : `Admin${labelIndex}`)) labelIndex += 1;
+    const adminLabel = labelIndex === 0 ? 'Admin' : `Admin${labelIndex}`;
+
     if (admin) {
       admin.name = 'Admin';
       admin.role = 'admin';
+      admin.adminLabel = admin.adminLabel || adminLabel;
       admin.isBlocked = false;
       admin.password = ADMIN_PASSWORD;
 
@@ -31,6 +37,7 @@ async function createAdmin() {
         email: ADMIN_EMAIL,
         password: ADMIN_PASSWORD,
         role: 'admin',
+        adminLabel,
         isBlocked: false,
         warnings: 0,
       });

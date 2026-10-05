@@ -25,8 +25,15 @@ const schema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ['user', 'admin'],
+      enum: ['user', 'admin', 'superadmin'],
       default: 'user',
+    },
+
+    adminLabel: {
+      type: String,
+      unique: true,
+      sparse: true,
+      trim: true,
     },
 
     isBlocked: {

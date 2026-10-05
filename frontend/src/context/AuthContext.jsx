@@ -8,5 +8,6 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => save((await api.post('/auth/login', { email, password })).data);
   const register = async (name, email, password) => save((await api.post('/auth/register', { name, email, password })).data);
   const logout = () => { localStorage.removeItem('talkwise_user'); setUser(null); };
-  return <Ctx.Provider value={{ user, login, register, logout, isAdmin: user?.role === 'admin' }}>{children}</Ctx.Provider>;
+  const isSuperAdmin = user?.role === 'superadmin';
+  return <Ctx.Provider value={{ user, login, register, logout, isAdmin: user?.role === 'admin' || isSuperAdmin, isSuperAdmin }}>{children}</Ctx.Provider>;
 }

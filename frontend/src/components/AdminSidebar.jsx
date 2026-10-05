@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import socket from '../services/socket';
 import api from '../services/api';
-const links = [
-  ['/admin', 'Dashboard', true], ['/admin/posts', 'Posts'], ['/admin/users', 'Users'],
-  ['/admin/reports', 'Reports'], ['/admin/keywords', 'Keywords'], ['/admin/notifications', 'Notifications'],
-];
 export default function AdminSidebar() {
+  const { isSuperAdmin } = useAuth();
+  const links = [
+    ['/admin', 'Dashboard', true], ['/admin/posts', 'Posts'], ['/admin/users', 'Users'],
+    ['/admin/reports', 'Reports'], ['/admin/notifications', 'Notifications'],
+    ...(isSuperAdmin ? [['/admin/admins', 'Manage admins'], ['/admin/responses', 'Comments'], ['/admin/keywords', 'Keywords']] : []),
+  ];
   const [unread, setUnread] = useState(0);
   useEffect(() => {
     api.get('/notifications').then((r) => setUnread(r.data.filter((n) => !n.isRead).length)).catch(() => {});
