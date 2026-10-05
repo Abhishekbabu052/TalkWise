@@ -10,6 +10,7 @@ export default function AdminSidebar() {
     ['/admin/reports', 'Reports'], ['/admin/notifications', 'Notifications'],
     ...(isSuperAdmin ? [['/admin/admins', 'Manage admins'], ['/admin/responses', 'Comments'], ['/admin/keywords', 'Keywords']] : []),
   ];
+  if (isSuperAdmin) links.unshift(['/super-admin', 'Super admin', true]);
   const [unread, setUnread] = useState(0);
   useEffect(() => {
     api.get('/notifications').then((r) => setUnread(r.data.filter((n) => !n.isRead).length)).catch(() => {});

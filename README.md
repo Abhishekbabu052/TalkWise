@@ -7,8 +7,8 @@ A moderated public discussion platform built with the MERN stack and Socket.IO.
 2. `npm run install:all`
 3. Edit `backend/.env` (copy of `.env.example`) and `frontend/.env` if needed.
 4. `npm run seed:admin` creates or resets an admin from `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
-5. Set `SUPERADMIN_EMAIL` and `SUPERADMIN_PASSWORD`, then run `npm run seed:superadmin` from the `backend` directory to create the superadmin account. Change the example credentials before deployment.
-5. `npm run dev` starts the API on :5000 and the frontend on :5173.
+5. Set `SUPERADMIN_EMAIL` and `SUPERADMIN_PASSWORD`, then run `npm run seed:superadmin` from the `backend` directory to create the superadmin account. Use a strong, unique password.
+6. `npm run dev` starts the API on :5000 and the frontend on :5173.
 
 For deployed staff accounts, set `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `SUPERADMIN_EMAIL`, `SUPERADMIN_PASSWORD`, and `MONGO_URI` in the Render service environment, then run the respective seed scripts in the Render Shell. Both scripts must use the same Atlas database as the deployed API.
 

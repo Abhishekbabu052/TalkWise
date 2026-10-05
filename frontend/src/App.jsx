@@ -18,6 +18,7 @@ import Keywords from './pages/admin/Keywords';
 import Notifications from './pages/admin/Notifications';
 import Admins from './pages/admin/Admins';
 import AdminResponses from './pages/admin/Responses';
+import SuperAdminDashboard from './pages/SuperAdminDashboard';
 
 function Private({ children }) {
   const { user } = useAuth();
@@ -53,6 +54,7 @@ export default function App() {
         <Route path="/posts/:id" element={<PostDetails />} />
         <Route path="/responses" element={<Private><Responses /></Private>} />
         <Route path="/profile" element={<Private><Profile /></Private>} />
+        <Route path="/super-admin" element={<SuperAdminOnly><div className="admin-shell"><AdminSidebar /><main className="admin-main"><SuperAdminDashboard /></main></div></SuperAdminOnly>} />
         <Route path="/admin" element={<AdminOnly />}>
           <Route index element={<Dashboard />} />
           <Route path="posts" element={<AdminPosts />} />

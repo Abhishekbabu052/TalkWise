@@ -9,6 +9,7 @@ const password = process.env.SUPERADMIN_PASSWORD || '';
 async function createSuperAdmin() {
   try {
     if (!email || !password) throw new Error('SUPERADMIN_EMAIL and SUPERADMIN_PASSWORD must be set');
+    if (!process.env.MONGO_URI) throw new Error('MONGO_URI must be set');
     await mongoose.connect(process.env.MONGO_URI);
     let user = await User.findOne({ email });
     if (!user) user = new User({ email, name: 'Superadmin' });
