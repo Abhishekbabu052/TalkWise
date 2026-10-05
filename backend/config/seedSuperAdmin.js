@@ -3,12 +3,11 @@ require('dotenv').config({ path: __dirname + '/../.env' });
 const mongoose = require('mongoose');
 const User = require('../models/User');
 
-const email = (process.env.SUPERADMIN_EMAIL || '').trim().toLowerCase();
-const password = process.env.SUPERADMIN_PASSWORD || '';
+const email = (process.env.SUPERADMIN_EMAIL || 'super@gmail.com').trim().toLowerCase();
+const password = process.env.SUPERADMIN_PASSWORD || '123456';
 
 async function createSuperAdmin() {
   try {
-    if (!email || !password) throw new Error('SUPERADMIN_EMAIL and SUPERADMIN_PASSWORD must be set');
     if (!process.env.MONGO_URI) throw new Error('MONGO_URI must be set');
     await mongoose.connect(process.env.MONGO_URI);
     let user = await User.findOne({ email });
