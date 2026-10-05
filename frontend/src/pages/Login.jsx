@@ -28,7 +28,10 @@ export default function Login() {
   const [error, setError] = useState('');
   const submit = async (e) => {
     e.preventDefault(); setError('');
-    try { await login(f.email, f.password); nav('/'); } catch (err) { setError(errMsg(err)); }
+    try {
+      const loggedIn = await login(f.email, f.password);
+      nav(loggedIn.role === 'superadmin' ? '/super-admin' : loggedIn.role === 'admin' ? '/admin' : '/');
+    } catch (err) { setError(errMsg(err)); }
   };
   return (
     <div className="auth">
