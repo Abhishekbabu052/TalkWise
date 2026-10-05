@@ -10,7 +10,7 @@ export default function Navbar() {
         <nav className="nav-links">
           <NavLink to="/" end>Discussions</NavLink>
           {user && <NavLink to="/responses">My responses</NavLink>}
-          {isAdmin && <NavLink to={isSuperAdmin ? '/super-admin' : '/admin'}>{isSuperAdmin ? 'Super admin' : 'Admin'}</NavLink>}
+          {isAdmin && <NavLink to={isSuperAdmin ? '/super-admin' : '/admin'}>{isSuperAdmin ? 'Super Admin Dashboard' : 'Admin'}</NavLink>}
           {user ? (
             <>
               <NavLink to="/profile">{user.name}</NavLink>
