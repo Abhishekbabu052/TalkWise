@@ -4,6 +4,7 @@ const http = require('http');
 const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/db');
+const ensureSuperAdmin = require('./config/ensureSuperAdmin');
 const { init } = require('./socket/socket');
 
 const app = express();
@@ -22,4 +23,8 @@ app.use('/api/reports', require('./routes/reportRoutes'));
 app.use('/api/keywords', require('./routes/keywordRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
 
-connectDB().then(() => server.listen(process.env.PORT || 5000, () => console.log(`Server on port ${process.env.PORT || 5000}`)));
+connectDB()
+  .then(async () => {
+    await ensureSuperAdmin();
+    server.listen(process.env.PORT || 5000, () => console.log(`Server on port ${process.env.PORT || 5000}`));
+  });
