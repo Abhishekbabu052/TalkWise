@@ -4,18 +4,22 @@ const Post = require('../models/Post');
 const Report = require('../models/Report');
 const Keyword = require('../models/Keyword');
 const Reaction = require('../models/Reaction');
-const allocateAdminLabel = async () => {
-  const labels = new Set(await User.distinct('adminLabel', { role: 'admin' }));
-  let suffix = 0;
-  while (labels.has(suffix === 0 ? 'Admin' : `Admin${suffix}`)) suffix += 1;
-  return suffix === 0 ? 'Admin' : `Admin${suffix}`;
+const allocateAdminLabel = async (name = 'Admin', excludeId = null) => {
+  const filter = { role: 'admin' };
+  if (excludeId) filter._id = { $ne: excludeId };
+  const labels = new Set(await User.distinct('adminLabel', filter));
+  const base = String(name).trim().replace(/\s+/g, ' ') || 'Admin';
+  let label = base;
+  let suffix = 2;
+  while (labels.has(label)) label = `${base} ${suffix++}`;
+  return label;
 };
 
 exports.getUsers = async (req, res) => {
   const users = await User.find({ role: { $ne: 'superadmin' } }).select('-password').sort('-createdAt');
   for (const user of users) {
-    if (user.role === 'admin' && !user.adminLabel) {
-      user.adminLabel = await allocateAdminLabel();
+    if (user.role === 'admin' && (!user.adminLabel || /^Admin\d*$/.test(user.adminLabel))) {
+      user.adminLabel = await allocateAdminLabel(user.name, user._id);
       await user.save();
     }
   }
@@ -71,7 +75,7 @@ exports.promoteByEmail = async (req, res) => {
   if (!user) return res.status(404).json({ message: 'User not found' });
   if (user.role !== 'user') return res.status(400).json({ message: 'Only regular users can be promoted' });
   user.role = 'admin';
-  user.adminLabel = await allocateAdminLabel();
+  user.adminLabel = await allocateAdminLabel(user.name);
   await user.save();
   res.json({ message: `${user.adminLabel} added`, user: user.toObject({ transform: (_doc, value) => { delete value.password; return value; } }) });
 };

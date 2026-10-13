@@ -8,6 +8,7 @@ export default function PostCard({ post }) {
         <h3><Link to={`/posts/${post._id}`}>{post.title || (post.image ? 'Image post' : 'Untitled post')}</Link></h3>
         <p>{post.description}</p>
         <div className="row small muted">
+          {post.author && <span>Posted by {post.author.adminLabel || post.author.name}</span>}
           <span className="badge">{post.responseCount ?? 0} responses</span>
           {post.reactionTotal > 0 && <span className="badge grey">{post.reactionTotal} reactions</span>}
           <span>{new Date(post.createdAt).toLocaleDateString()}</span>

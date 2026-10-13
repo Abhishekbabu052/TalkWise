@@ -8,6 +8,7 @@ const schema = new mongoose.Schema({
 }, { timestamps: true });
 schema.index({ post: 1, user: 1 }, { unique: true, partialFilterExpression: { user: { $type: 'objectId' } } });
 schema.index({ post: 1, clientId: 1 }, { unique: true, partialFilterExpression: { clientId: { $type: 'string' } } });
+schema.index({ post: 1 });
 schema.pre('validate', function () {
   if (Boolean(this.user) === Boolean(this.clientId)) this.invalidate('user', 'Provide either a user or a client ID');
 });

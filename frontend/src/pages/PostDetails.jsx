@@ -32,7 +32,10 @@ export default function PostDetails() {
     <div className="container" style={{ maxWidth: 760 }}>
       <Link to="/" className="small">← All discussions</Link>
       <h1 style={{ marginTop: 10 }}>{post.title || (post.image ? 'Image post' : 'Untitled post')}</h1>
-      <p className="small muted" style={{ marginTop: 6 }}>{new Date(post.createdAt).toLocaleDateString()}</p>
+      <p className="small muted" style={{ marginTop: 6 }}>
+        {post.author && <>Posted by {post.author.adminLabel || post.author.name} · </>}
+        {new Date(post.createdAt).toLocaleDateString()}
+      </p>
       {post.image && <img className="hero-img" src={imgUrl(post.image)} alt="" />}
       <p className="post-desc">{post.description}</p>
       <ReactionBar postId={id} initial={post.reactions} />

@@ -11,10 +11,11 @@ export default function Posts() {
       <div className="row between page-head"><h1>Posts</h1><Link to="/admin/posts/new" className="btn">New post</Link></div>
       {posts.length === 0 ? <div className="empty">No posts yet. Create the first discussion.</div> :
         <div className="table-wrap"><table>
-          <thead><tr><th>Title</th><th>Responses</th><th>Created</th><th /></tr></thead>
+          <thead><tr><th>Title</th><th>Posted by</th><th>Responses</th><th>Created</th><th /></tr></thead>
           <tbody>{posts.map((p) => (
             <tr key={p._id}>
-              <td><Link to={`/posts/${p._id}`}>{p.title || (p.image ? 'Image post' : 'Untitled post')}</Link></td><td>{p.responseCount}</td>
+              <td><Link to={`/posts/${p._id}`}>{p.title || (p.image ? 'Image post' : 'Untitled post')}</Link></td>
+              <td className="muted">{p.author?.adminLabel || p.author?.name || 'Unknown'}</td><td>{p.responseCount}</td>
               <td className="muted">{new Date(p.createdAt).toLocaleDateString()}</td>
               <td><div className="row" style={{ justifyContent: 'flex-end' }}>
                 <Link className="btn ghost sm" to={`/admin/posts/${p._id}/edit`}>Edit</Link>
