@@ -28,7 +28,7 @@ export default function SuperAdminDashboard() {
   return (
     <div className="super-admin-page">
       <div className="page-head">
-        <span className="badge">SUPERADMIN CONTROL CENTER</span>
+        <span className="badge">Superadmin control center</span>
         <h1>Platform control</h1>
         <p>Manage staff access, members, and all community content from one place.</p>
       </div>

@@ -23,8 +23,8 @@ export default function Profile() {
   return (
     <div className="container" style={{ maxWidth: 520 }}>
       <div className="page-head"><h1>Profile</h1></div>
-      <div className="card stack">
-        <div className="row"><div className="avatar">{user.name[0].toUpperCase()}</div><div><strong>{user.name}</strong><div className="muted small">{user.email}</div></div></div>
+      <div className="card profile-card">
+        <div className="row"><div className="avatar">{user.name[0].toUpperCase()}</div><div><strong style={{ fontSize: '1.1rem' }}>{user.name}</strong><div className="muted small">{user.email}</div></div></div>
         <div><span className={`badge ${user.role === 'admin' ? '' : 'grey'}`}>{user.role}</span></div>
       </div>
       <section className="account-danger">

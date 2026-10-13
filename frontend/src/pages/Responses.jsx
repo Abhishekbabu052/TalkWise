@@ -14,10 +14,10 @@ export default function Responses() {
         : <div className="stack">{list.map((r) => (
           <div className="card" key={r._id}>
             <div className="row between small">
-              <Link to={`/posts/${r.post?._id}`}>{r.post?.title || 'Deleted post'}</Link>
+              <Link to={`/posts/${r.post?._id}`} style={{ fontWeight: 600 }}>{r.post?.title || 'Deleted post'}</Link>
               <span className="muted">{new Date(r.createdAt).toLocaleString()}</span>
             </div>
-            <p style={{ margin: '8px 0', whiteSpace: 'pre-wrap' }}>{r.text}</p>
+            <p style={{ margin: '10px 0', whiteSpace: 'pre-wrap' }}>{r.text}</p>
             <button className="link-btn" onClick={() => del(r._id)}>Delete</button>
           </div>))}</div>}
     </div>

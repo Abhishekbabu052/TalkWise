@@ -30,16 +30,18 @@ export default function PostDetails() {
   if (!post) return <div className="container muted">Loading…</div>;
   return (
     <div className="container" style={{ maxWidth: 760 }}>
-      <Link to="/" className="small">← All discussions</Link>
-      <h1 style={{ marginTop: 10 }}>{post.title || (post.image ? 'Image post' : 'Untitled post')}</h1>
-      <p className="small muted" style={{ marginTop: 6 }}>
-        {post.author && <>Posted by {post.author.adminLabel || post.author.name} · </>}
-        {new Date(post.createdAt).toLocaleDateString()}
-      </p>
+      <Link to="/" className="back-link small">← All discussions</Link>
+      <div className="post-head">
+        <h1 style={{ marginTop: 10 }}>{post.title || (post.image ? 'Image post' : 'Untitled post')}</h1>
+        <p className="small muted" style={{ marginTop: 8 }}>
+          {post.author && <>Posted by {post.author.adminLabel || post.author.name} · </>}
+          {new Date(post.createdAt).toLocaleDateString()}
+        </p>
+      </div>
       {post.image && <img className="hero-img" src={imgUrl(post.image)} alt="" />}
       <p className="post-desc">{post.description}</p>
-      <ReactionBar postId={id} initial={post.reactions} />
-      <div className="row" style={{ margin: '36px 0 8px' }}>
+      <div style={{ marginTop: 20 }}><ReactionBar postId={id} initial={post.reactions} /></div>
+      <div className="row" style={{ margin: '40px 0 12px' }}>
         <h2>Responses ({responses.length})</h2><span className="live-dot" title="Live" />
       </div>
       <div className="card" style={{ marginBottom: 20 }}>

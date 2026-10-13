@@ -14,7 +14,7 @@ export default function Home() {
         <h1>Join the conversation</h1>
         <p>Read any topic. Sign in to share your opinion, live.</p>
       </div>
-      <div className="field"><input placeholder="Search discussions" value={search} onChange={(e) => setSearch(e.target.value)} /></div>
+      <div className="search-field"><input placeholder="Search discussions" value={search} onChange={(e) => setSearch(e.target.value)} /></div>
       <div className="stack">
         {posts === null ? <p className="muted">Loading…</p>
           : posts.length === 0 ? <div className="empty">No discussions found.</div>
